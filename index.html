@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GrigorichStepAI — Лендинг для бизнеса и услуг</title>
+  <meta name="description" content="Сделаю лендинг для бизнеса и услуг под ключ от 2 дней. Адаптация, формы заявок, базовая SEO-подготовка.">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+      color: #1c1c1c;
+      line-height: 1.6;
+      background: #f6f3ee;
+      overflow-x: hidden;
+    }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; display: block; }
+    .container { max-width: 1150px; margin: 0 auto; padding: 0 24px; }
+
+    .btn {
+      display: inline-block;
+      padding: 14px 32px;
+      border-radius: 60px;
+      font-weight: 700;
+      font-size: 16px;
+      cursor: pointer;
+      transition: transform .2s, box-shadow .2s;
+      border: none;
+    }
+    .btn:hover { transform: translateY(-3px); }
+    .btn-primary {
+      background: linear-gradient(135deg, #ff7a18, #ff5722);
+      color: #fff;
+      box-shadow: 0 10px 22px rgba(255, 87, 34, .35);
+    }
+    .btn-outline {
+      background: transparent;
+      color: #ff5722;
+      border: 2px solid #ff5722;
+    }
+    .btn-outline:hover { background: #ff5722; color: #fff; }
+
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(246, 243, 238, .9);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(0,0,0,.06);
+    }
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 24px;
+      max-width: 1150px;
+      margin: 0 auto;
+    }
+    .logo { font-size: 22px; font-weight: 800; letter-spacing: -.5px; }
+    .logo span { color: #ff5722; }
+    .menu { display: flex; gap: 24px; font-weight: 600; font-size: 15px; }
+    .menu a:hover { color: #ff5722; }
+    .nav-phone { font-weight: 700; }
+    .nav-phone:hover { color: #ff5722; }
+    @media (max-width: 800px) {
+      .menu { display: none; }
+    }
+
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 80% 20%, rgba(255,122,24,.22), transparent 50%),
+        radial-gradient(circle at 10% 80%, rgba(255,87,34,.16), transparent 50%),
+        #f6f3ee;
+    }
+    .hero-wave { position: absolute; bottom: -2px; left: 0; right: 0; }
+    .hero .container {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 48px;
+      align-items: center;
+      padding-top: 110px;
+      padding-bottom: 60px;
+    }
+    .hero h1 {
+      font-size: clamp(32px, 5vw, 56px);
+      line-height: 1.15;
+      font-weight: 800;
+      letter-spacing: -1px;
+      margin-bottom: 20px;
+    }
+    .hero h1 .accent {
+      color: #ff5722;
+      border-bottom: 4px solid #ff7a18;
+    }
+    .hero-sub { font-size: 18px; color: #555; margin-bottom: 32px; max-width: 500px; }
+    .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; }
+    .hero-photo-wrap { position: relative; text-align: center; }
+    .hero-photo {
+      width: 100%;
+      max-width: 420px;
+      margin: 0 auto;
+      border-radius: 28px;
+      box-shadow: 0 30px 70px rgba(0,0,0,.22);
+      transform: rotate(-2deg);
+      border: 6px solid #fff;
+    }
+    .hero-badge {
+      position: absolute;
+      bottom: 24px; left: 50%;
+      transform: translateX(-50%);
+      background: #fff;
+      padding: 10px 22px;
+      border-radius: 40px;
+      box-shadow: 0 10px 25px rgba(0,0,0,.15);
+      font-weight: 700;
+      color: #ff5722;
+      white-space: nowrap;
+    }
+    @media (max-width: 860px) {
+      .hero .container { grid-template-columns: 1fr; text-align: center; padding-top: 110px; }
+      .hero-sub { margin-left: auto; margin-right: auto; }
+      .hero-btns { justify-content: center; }
+      .hero-photo { max-width: 320px; }
+    }
+
+    section { padding: 90px 0; position: relative; }
+    .section-title {
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 800;
+      text-align: center;
+      letter-spacing: -1px;
+      margin-bottom: 14px;
+    }
+    .section-sub {
+      text-align: center;
+      color: #666;
+      max-width: 620px;
+      margin: 0 auto 50px;
+      font-size: 17px;
+    }
+    .alt { background: #fff; }
+
+    .problems-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 22px;
+      margin-bottom: 40px;
+    }
+    .problem-card {
+      background: #fff;
+      border-radius: 18px;
+      padding: 28px;
+      box-shadow: 0 8px 25px rgba(0,0,0,.07);
+      border-top: 4px solid #ff7a18;
+      transition: transform .25s;
+    }
+    .problem-card:hover { transform: translateY(-6px); }
+    .problem-card h3 { font-size: 18px; margin-bottom: 10px; }
+    .problem-card p { color: #555; font-size: 15px; }
+    .problems-solve {
+      background: #ff5722;
+      color: #fff;
+      border-radius: 18px;
+      padding: 24px 30px;
+      font-size: 19px;
+      font-weight: 700;
+      text-align: center;
+      box-shadow: 0 14px 30px rgba(255,87,34,.3);
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 22px;
+    }
+    .service-card {
+      background: #f6f3ee;
+      border-radius: 18px;
+      padding: 30px;
+      text-align: center;
+      transition: transform .25s;
+    }
+    .service-card:hover { transform: translateY(-6px); }
+    .service-icon {
+      width: 64px; height: 64px;
+      margin: 0 auto 18px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #ff7a18, #ff5722);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 30px;
+      color: #fff;
+    }
+    .service-card h3 { margin-bottom: 10px; font-size: 19px; }
+    .service-card p { color: #555; font-size: 15px; }
+
+    .steps-wrap { position: relative; max-width: 900px; margin: 0 auto; }
+    .step {
+      display: flex;
+      align-items: flex-start;
+      gap: 24px;
+      margin-bottom: 34px;
+      background: #fff;
+      border-radius: 18px;
+      padding: 26px;
+      box-shadow: 0 6px 20px rgba(0,0,0,.06);
+    }
+    .step-num {
+      min-width: 54px; height: 54px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #ff7a18, #ff5722);
+      color: #fff;
+      font-weight: 800;
+      font-size: 22px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .step h3 { font-size: 20px; margin-bottom: 6px; }
+    .step p { color: #555; }
+    .step .btn { margin-top: 14px; }
+    @media (max-width: 600px) { .step { flex-direction: column; } }
+
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 22px;
+    }
+    .case-card {
+      background: #f6f3ee;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 8px 25px rgba(0,0,0,.07);
+      transition: transform .25s;
+    }
+    .case-card:hover { transform: translateY(-6px); }
+    .case-head { padding: 24px; border-bottom: 2px dashed #e0d9cf; }
+    .case-head h3 { font-size: 20px; }
+    .case-niche { font-weight: 700; color: #ff5722; margin-top: 4px; }
+    .case-body { padding: 20px 24px; color: #555; font-size: 15px; }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 22px;
+    }
+    .feature-card {
+      background: #f6f3ee;
+      border-radius: 18px;
+      padding: 28px;
+      border-left: 5px solid #ff7a18;
+    }
+    .feature-card h3 { font-size: 19px; margin-bottom: 8px; }
+    .feature-card p { color: #555; }
+
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 22px;
+      margin-top: 40px;
+    }
+    .review-card {
+      background: #fff;
+      border-radius: 18px;
+      padding: 28px;
+      box-shadow: 0 8px 25px rgba(0,0,0,.07);
+      position: relative;
+    }
+    .review-stars { color: #ffb400; font-size: 20px; letter-spacing: 3px; margin-bottom: 12px; }
+    .review-text { font-style: italic; color: #333; font-size: 16px; margin-bottom: 18px; }
+    .review-author { display: flex; align-items: center; gap: 12px; }
+    .review-avatar {
+      width: 46px; height: 46px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #ff7a18, #ff5722);
+      color: #fff;
+      font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+    }
+    .review-name { font-weight: 700; }
+    .review-niche { color: #888; font-size: 14px; }
+
+    .price-triggers {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 40px;
+      margin-bottom: 50px;
+      padding: 24px;
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 8px 25px rgba(0,0,0,.06);
+    }
+    .trigger { text-align: center; }
+    .trigger .num { font-size: 30px; font-weight: 800; color: #ff5722; }
+    .trigger .label { color: #777; font-size: 14px; }
+    .prices-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 22px;
+      align-items: stretch;
+    }
+    .price-card {
+      background: #f6f3ee;
+      border-radius: 18px;
+      padding: 32px;
+      text-align: center;
+      position: relative;
+      transition: transform .25s;
+    }
+    .price-card:hover { transform: translateY(-6px); }
+    .price-card.popular {
+      background: #fff;
+      box-shadow: 0 18px 40px rgba(0,0,0,.1);
+      border: 2px solid #ff5722;
+    }
+    .popular-badge {
+      position: absolute;
+      top: -14px; left: 50%;
+      transform: translateX(-50%);
+      background: #ff5722;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 6px 18px;
+      border-radius: 30px;
+    }
+    .price-name { font-weight: 800; font-size: 20px; }
+    .price-value { font-size: 42px; font-weight: 800; color: #ff5722; margin: 12px 0 4px; }
+    .price-term { color: #888; font-size: 14px; margin-bottom: 18px; }
+    .price-list { list-style: none; margin-bottom: 24px; text-align: left; }
+    .price-list li { padding: 7px 0; color: #555; font-size: 15px; }
+    .price-list li::before { content: "✔ "; color: #ff5722; font-weight: 700; }
+
+    .form-card {
+      max-width: 620px;
+      margin: 0 auto;
+      background: #fff;
+      border-radius: 22px;
+      padding: 40px;
+      box-shadow: 0 18px 45px rgba(0,0,0,.1);
+    }
+    .form-group { margin-bottom: 18px; }
+    .form-group label { display: block; font-weight: 600; margin-bottom: 6px; font-size: 15px; }
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%;
+      padding: 13px 16px;
+      border-radius: 12px;
+      border: 1.5px solid #ddd;
+      font-size: 16px;
+      font-family: inherit;
+      background: #fafaf7;
+    }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+      outline: none;
+      border-color: #ff5722;
+    }
+    .consent { font-size: 13px; color: #999; margin-top: 14px; text-align: center; }
+    .form-card .btn { width: 100%; margin-top: 10px; }
+
+    .contacts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .contact-item {
+      background: #fff;
+      border-radius: 16px;
+      padding: 24px;
+      text-align: center;
+      box-shadow: 0 6px 20px rgba(0,0,0,.06);
+    }
+    .contact-item .icon { font-size: 30px; margin-bottom: 10px; }
+    .contact-item a, .contact-item span { font-weight: 600; }
+    .contact-item a:hover { color: #ff5722; }
+
+    footer {
+      background: #1c1c1c;
+      color: #aaa;
+      text-align: center;
+      padding: 30px 20px;
+      font-size: 14px;
+    }
+    footer span { color: #ff7a18; font-weight: 700; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="nav">
+      <div class="logo">Grigorich<span>StepAI</span></div>
+      <nav class="menu">
+        <a href="#problems">Проблемы</a>
+        <a href="#services">Что делаю</a>
+        <a href="#steps">Как работаю</a>
+        <a href="#portfolio">Портфолио</a>
+        <a href="#prices">Тарифы</a>
+        <a href="#contacts">Контакты</a>
+      </nav>
+      <a class="nav-phone" href="tel:+79012662409">+7 (901) 266-24-09</a>
+    </div>
+  </header>
+
+  <section class="hero" id="top">
+    <div class="hero-bg"></div>
+    <div class="container">
+      <div>
+        <h1>Сделаю лендинг для бизнеса и услуг <span class="accent">под ключ от 2 дней</span></h1>
+        <p class="hero-sub">С адаптацией, формами заявок и базовой SEO-подготовкой. Ваш бизнес заслуживает крутого старта!</p>
+        <div class="hero-btns">
+          <a href="#form" class="btn btn-primary">Оставить заявку</a>
+          <a href="#contacts" class="btn btn-outline">Пообщаться в MAX</a>
+        </div>
+      </div>
+      <div class="hero-photo-wrap">
+        <img class="hero-photo"
+             src="https://static.mashagpt.ru/dl/mashagpt/no43ig87tkp6qchvz9rcm5st.webp"
+             alt="Игорь Рожков — разработчик сайтов">
+        <div class="hero-badge">⚡ Разрабатываю сайты</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="alt" id="problems">
+    <div class="container">
+      <h2 class="section-title">Узнаёте себя?</h2>
+      <p class="section-sub">Ситуации, с которыми сталкиваются владельцы бизнеса и услуг</p>
+      <div class="problems-grid">
+        <div class="problem-card">
+          <h3>🔻 Реклама есть, а заявок нет</h3>
+          <p>Сайт не убеждает оставить контакт — деньги уходят впустую.</p>
+        </div>
+        <div class="problem-card">
+          <h3>🔻 Старый сайт стыдно показывать</h3>
+          <p>На телефоне всё едет, клиент уходит к конкуренту.</p>
+        </div>
+        <div class="problem-card">
+          <h3>🔻 Открываете дело — а сайта нет</h3>
+          <p>Без сайта бизнес выглядит несерьёзно.</p>
+        </div>
+        <div class="problem-card">
+          <h3>🔻 Студии просят 50–90 тысяч и месяц</h3>
+          <p>А ждать некогда — клиенты нужны уже сейчас.</p>
+        </div>
+      </div>
+      <div class="problems-solve">
+        🟠 Во всех случаях решение одно — сайт, который продаёт. Быстро и без переплаты.
+      </div>
+    </div>
+  </section>
+
+  <section id="services">
+    <div class="container">
+      <h2 class="section-title">Что делаю</h2>
+      <p class="section-sub">Услуги, которые помогают бизнесу расти</p>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon">🚀</div>
+          <h3>Лендинги под бизнес и услуги</h3>
+          <p>Идеально для быстрого запуска продаж.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🎯</div>
+          <h3>Продающие сайты</h3>
+          <p>Глубокая проработка воронки и офферов.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">💼</div>
+          <h3>Сайты-визитки</h3>
+          <p>Лаконично и презентабельно для личного бренда.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🔧</div>
+          <h3>Доработки существующих сайтов</h3>
+          <p>Исправлю ошибки и ускорю ваш сайт.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="alt" id="steps">
+    <div class="container">
+      <h2 class="section-title">Как работаем</h2>
+      <p class="section-sub">Простой и понятный процесс без лишней бюрократии</p>
+      <div class="steps-wrap">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div>
+            <h3>Заявка</h3>
+            <p>Обсудим вашу идею и цели.</p>
+            <a href="#form" class="btn btn-primary">Оставить заявку</a>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div>
+            <h3>Бриф</h3>
+            <p>Короткая анкета, чтобы я понял ваш бизнес (10 минут, без ТЗ на 20 страниц).</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div>
+            <h3>Прототип</h3>
+            <p>Делаю структуру и логику будущего сайта.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div>
+            <h3>Дизайн и вёрстка</h3>
+            <p>Яркий визуал + адаптив под все устройства.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">5</div>
+          <div>
+            <h3>Сдача + инструкция</h3>
+            <p>Передаю доступы и учу вносить правки самостоятельно. Платите после утверждения.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="portfolio">
+    <div class="container">
+      <h2 class="section-title">Портфолио</h2>
+      <p class="section-sub">Примеры работ в разных нишах</p>
+      <div class="portfolio-grid">
+        <div class="case-card">
+          <div class="case-head">
+            <h3>Екатерина Коробейникова</h3>
+            <div class="case-niche">Юриспруденция / банкротство</div>
+          </div>
+          <div class="case-body">Лендинг с бесплатной консультацией.</div>
+        </div>
+        <div class="case-card">
+          <div class="case-head">
+            <h3>Екатерина Зубова</h3>
+            <div class="case-niche">Психология / гештальт</div>
+          </div>
+          <div class="case-body">Бережный дизайн под доверие + удобная запись.</div>
+        </div>
+        <div class="case-card">
+          <div class="case-head">
+            <h3>Елена Ганичева</h3>
+            <div class="case-niche">Репетитор начальных классов</div>
+          </div>
+          <div class="case-body">Понятная структура + сбор заявок через мессенджеры.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="alt" id="features">
+    <div class="container">
+      <h2 class="section-title">Что вы получите</h2>
+      <p class="section-sub">Почему со мной работать удобно</p>
+      <div class="features-grid">
+        <div class="feature-card">
+          <h3>🎯 Сайт, который превращает клики в заявки</h3>
+          <p>Продающая структура, а не просто красивая картинка.</p>
+        </div>
+        <div class="feature-card">
+          <h3>⚡ Готов за пару дней</h3>
+          <p>Без ожидания в три недели.</p>
+        </div>
+        <div class="feature-card">
+          <h3>💡 Не пустой шаблон</h3>
+          <p>Прорабатываю оффер под вашу аудиторию.</p>
+        </div>
+        <div class="feature-card">
+          <h3>🚀 Запуск под ключ</h3>
+          <p>Через пару дней у бизнеса есть лицо в интернете.</p>
+        </div>
+        <div class="feature-card">
+          <h3>💰 Фиксированная цена</h3>
+          <p>Без переплат сверху.</p>
+        </div>
+        <div class="feature-card">
+          <h3>📲 Заявки сразу вам в Max/CRM</h3>
+          <p>Без лишних сервисов.</p>
+        </div>
+      </div>
+
+      <h2 class="section-title" style="margin-top:80px;">Отзывы клиентов</h2>
+      <p class="section-sub">Реальные слова людей, с которыми я работал</p>
+      <div class="reviews-grid">
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">«Посмотрела. Очень понравилось. Спасибо Вам огромное 😊 С удовольствием буду Вас рекомендовать 😊»</p>
+          <div class="review-author">
+            <div class="review-avatar">ЕЗ</div>
+            <div>
+              <div class="review-name">Екатерина Зубова</div>
+              <div class="review-niche">Психолог, гештальт-терапия</div>
+            </div>
+          </div>
+        </div>
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">«Спасибо! Прислали сайт на проверку — всё работает, переходы исправные. Заинтересовали, уточняю стоимость услуги.»</p>
+          <div class="review-author">
+            <div class="review-avatar">ЕК</div>
+            <div>
+              <div class="review-name">Екатерина Коробейникова</div>
+              <div class="review-niche">Юрист, банкротство физлиц</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="prices">
+    <div class="container">
+      <h2 class="section-title">Тарифы</h2>
+      <p class="section-sub">Прозрачные цены без скрытых доплат</p>
+      <div class="price-triggers">
+        <div class="trigger">
+          <div class="num">⚡ от 2 дней</div>
+          <div class="label">минимальный срок</div>
+        </div>
+        <div class="trigger">
+          <div class="num">⬆️ до 7 дней</div>
+          <div class="label">максимальный срок</div>
+        </div>
+        <div class="trigger">
+          <div class="num">💰 от 3 000 ₽</div>
+          <div class="label">фикс-цена</div>
+        </div>
+        <div class="trigger">
+          <div class="num">🛡️ 0 ₽</div>
+          <div class="label">предоплаты</div>
+        </div>
+      </div>
+      <div class="prices-grid">
+        <div class="price-card">
+          <div class="price-name">⚡ Быстрый лендинг</div>
+          <div class="price-value">3 000 ₽</div>
+          <div class="price-term">2 дня</div>
+          <ul class="price-list">
+            <li>1 экран</li>
+            <li>Базовая форма заявки</li>
+            <li>Адаптив</li>
+            <li>Стандартный дизайн</li>
+          </ul>
+          <a href="#form" class="btn btn-outline">Выбрать</a>
+        </div>
+        <div class="price-card popular">
+          <div class="popular-badge">🔥 Популярный</div>
+          <div class="price-name">🚀 Лендинг с UX</div>
+          <div class="price-value">6 000 ₽</div>
+          <div class="price-term">5 дней</div>
+          <ul class="price-list">
+            <li>Индивидуальная структура</li>
+            <li>Анализ конкурентов</li>
+            <li>До 5 блоков</li>
+            <li>Анимация</li>
+          </ul>
+          <a href="#form" class="btn btn-primary">Выбрать</a>
+        </div>
+        <div class="price-card">
+          <div class="price-name">💎 Лендинг + SEO</div>
+          <div class="price-value">10 000 ₽</div>
+          <div class="price-term">до 10 дней</div>
+          <ul class="price-list">
+            <li>Полный цикл</li>
+            <li>SEO-мета-теги</li>
+            <li>Интеграция с CRM</li>
+            <li>Инструкция</li>
+          </ul>
+          <a href="#form" class="btn btn-outline">Выбрать</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="alt" id="form">
+    <div class="container">
+      <h2 class="section-title">Оставить заявку</h2>
+      <p class="section-sub">Расскажите о проекте — отвечу и предложу решение</p>
+      <div class="form-card">
+        <form>
+          <div class="form-group">
+            <label>Имя *</label>
+            <input type="text" placeholder="Ваше имя" required>
+          </div>
+          <div class="form-group">
+            <label>Телефон или MAX *</label>
+            <input type="text" placeholder="+7 (___) ___-__-__" required>
+          </div>
+          <div class="form-group">
+            <label>Почта</label>
+            <input type="email" placeholder="you@mail.ru">
+          </div>
+          <div class="form-group">
+            <label>Тип сайта</label>
+            <select>
+              <option>Лендинг</option>
+              <option>Сайт-визитка</option>
+              <option>Интернет-магазин</option>
+              <option>Доработка сайта</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Бюджет (опционально)</label>
+            <input type="text" placeholder="Например: до 6 000 ₽">
+          </div>
+          <div class="form-group">
+            <label>Сроки</label>
+            <input type="text" placeholder="Например: нужен за неделю">
+          </div>
+          <div class="form-group">
+            <label>Ссылка на референс</label>
+            <textarea rows="2" placeholder="Вставьте ссылку на пример, который нравится"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Отправить заявку</button>
+          <p class="consent">Нажимая кнопку, вы соглашаетесь на обработку персональных данных.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section id="contacts">
+    <div class="container">
+      <h2 class="section-title">Контакты</h2>
+      <p class="section-sub">Буду рад ответить на ваши вопросы</p>
+      <div class="contacts-grid">
+        <div class="contact-item">
+          <div class="icon">📞</div>
+          <a href="tel:+79012662409">+7 (901) 266-24-09</a>
+        </div>
+        <div class="contact-item">
+          <div class="icon">✉️</div>
+          <a href="mailto:rozhkov.69@mail.ru">rozhkov.69@mail.ru</a>
+        </div>
+        <div class="contact-item">
+          <div class="icon">💬</div>
+          <span>Max: +7 (901) 266-24-09</span>
+        </div>
+        <div class="contact-item">
+          <div class="icon">🐙</div>
+          <a href="https://github.com/grigorichri" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    © 2026 <span>GrigorichStepAI</span> · Сайт, который продаёт. Быстро и без переплаты.
+  </footer>
+
+</body>
+</html>
