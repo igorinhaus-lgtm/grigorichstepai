@@ -3,277 +3,287 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GrigorichStepAI — Web Design Studio</title>
+<title>GrigorichStepAI — лендинг для бизнеса и услуг</title>
 <style>
-  :root{
-    --dark:#1a202c;
-    --blue:#0066ff;
-    --light:#f7f9fc;
-    --text:#2d3748;
-    --muted:#718096;
-  }
-  *{margin:0;padding:0;box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  body{
-    font-family:'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
-    color:var(--text);
-    background:#ffffff;
-    font-size:19px;          /* весь текст увеличен под ПК */
-    line-height:1.65;
-  }
-  a{text-decoration:none;color:inherit;}
-
-  /* ===== ШАПКА ===== */
-  header{
-    position:sticky;top:0;z-index:100;
-    background:rgba(255,255,255,0.92);
-    backdrop-filter:blur(6px);
-    box-shadow:0 1px 12px rgba(26,32,44,0.08);
-  }
-  .nav{
-    max-width:1200px;margin:0 auto;
-    display:flex;align-items:center;justify-content:space-between;
-    padding:16px 24px;
-    font-size:21px;   /* текст в шапке увеличен */
-  }
-  .logo{display:flex;align-items:center;gap:10px;}
-  .logo-icon{
-    width:52px;height:52px;flex:none;border-radius:12px;
-  }
-  .logo-text{display:flex;flex-direction:column;line-height:1.1;}
-  .logo-name{font-weight:800;font-size:1.35rem;letter-spacing:.2px;}
-  .logo-name .ai{color:var(--blue);}
-  .logo-sub{font-size:.72rem;color:var(--muted);letter-spacing:3px;text-transform:uppercase;font-weight:500;}
-  .menu{display:flex;gap:34px;align-items:center;}
-  .menu a{font-weight:600;color:var(--text);transition:color .2s;}
-  .menu a:hover{color:var(--blue);}
-  .menu .cta{
-    background:var(--blue);color:#fff;padding:12px 22px;border-radius:30px;font-weight:700;
-  }
-  .menu .cta:hover{background:#004fd6;color:#fff;}
-
-  /* ===== ГЕРОЙ (1-й блок, фото полупрозрачно) ===== */
-  .hero{
-    background:linear-gradient(rgba(255,255,255,0.78),rgba(255,255,255,0.78)),url('FON.jpg') center/cover no-repeat;
-    text-align:center;padding:110px 24px 120px;
-  }
-  .hero h1{font-size:3.4rem;font-weight:800;color:var(--dark);line-height:1.15;max-width:900px;margin:0 auto 22px;}
-  .hero h1 span{color:var(--blue);}
-  .hero p{font-size:1.35rem;color:var(--text);max-width:820px;margin:0 auto 36px;}
-  .hero-btns{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;}
-  .btn{
-    display:inline-block;padding:16px 34px;border-radius:40px;font-weight:700;font-size:1.12rem;transition:.25s;
-  }
-  .btn-primary{background:var(--blue);color:#fff;}
-  .btn-primary:hover{background:#004fd6;transform:translateY(-2px);}
-  .btn-ghost{border:2px solid var(--blue);color:var(--blue);}
-  .btn-ghost:hover{background:var(--blue);color:#fff;transform:translateY(-2px);}
-
-  /* ===== ОБЩИЕ СЕКЦИИ ===== */
-  section{max-width:1200px;margin:0 auto;padding:80px 24px;}
-  .sec-head{text-align:center;margin-bottom:54px;}
-  .sec-head h2{font-size:2.6rem;color:var(--dark);margin-bottom:14px;font-weight:800;}
-  .sec-head p{font-size:1.2rem;color:var(--muted);max-width:760px;margin:0 auto;}
-
-  /* Услуги */
-  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;}
-  .card{
-    background:#fff;border:1px solid #e2e8f0;border-radius:18px;padding:40px 30px;
-    transition:.25s;
-  }
-  .card:hover{box-shadow:0 16px 40px rgba(26,32,44,0.12);transform:translateY(-6px);border-color:var(--blue);}
-  .card .ico{font-size:2.6rem;margin-bottom:16px;}
-  .card h3{font-size:1.5rem;color:var(--dark);margin-bottom:12px;}
-  .card p{color:var(--text);font-size:1.1rem;}
-
-  /* Портфолио */
-  .work{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;}
-  .witem{border-radius:16px;overflow:hidden;position:relative;min-height:260px;background:linear-gradient(135deg,#1a202c,#2d3748);}
-  .witem .tag{position:absolute;left:16px;top:16px;background:var(--blue);color:#fff;font-size:.85rem;padding:6px 14px;border-radius:20px;font-weight:600;}
-  .witem .cap{position:absolute;left:0;right:0;bottom:0;padding:22px;background:linear-gradient(transparent,rgba(0,0,0,.75));color:#fff;}
-  .witem .cap h3{font-size:1.4rem;margin-bottom:6px;}
-
-  /* Отзывы */
-  .revs{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;}
-  .rev{background:var(--light);border-radius:16px;padding:34px 30px;}
-  .rev .stars{color:#f6ad55;font-size:1.3rem;margin-bottom:14px;}
-  .rev p{font-size:1.1rem;margin-bottom:18px;font-style:italic;}
-  .rev .who{font-weight:700;color:var(--dark);}
-  .rev .who span{display:block;font-weight:400;color:var(--muted);font-size:.95rem;}
-
-  /* ===== ЦЕНЫ ===== */
-  .prices{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;}
-  .plan{
-    background:#fff;border:1px solid #e2e8f0;border-radius:18px;padding:40px 32px;text-align:center;transition:.25s;
-  }
-  .plan.featured{border:2px solid var(--blue);box-shadow:0 16px 40px rgba(0,102,255,.15);}
-  .plan h3{font-size:1.4rem;color:var(--dark);}
-  .plan .price{font-size:2.8rem;font-weight:800;color:var(--blue);margin:14px 0;font-family:inherit;}
-  .plan ul{list-style:none;text-align:left;margin:20px 0 26px;font-size:1.08rem;}
-  .plan ul li{padding:8px 0 8px 30px;position:relative;color:var(--text);}
-  .plan ul li::before{content:'✓';position:absolute;left:0;color:var(--blue);font-weight:800;}
-  .plan .btn{width:100%;}
-
-  /* ===== КОНТАКТЫ (последний блок, фото + горизонтальный скролл) ===== */
-  .contact{
-    background:linear-gradient(rgba(26,32,44,0.82),rgba(26,32,44,0.82)),url('FON.jpg') center/cover no-repeat;
-    color:#fff;max-width:100%;
-  }
-  .contact .inner{max-width:1200px;margin:0 auto;padding:90px 24px;}
-  .contact h2{font-size:2.6rem;text-align:center;margin-bottom:10px;font-weight:800;}
-  .contact .sub{text-align:center;color:#cbd5e0;font-size:1.2rem;margin-bottom:48px;}
-  .scrol{display:flex;gap:24px;overflow-x:auto;padding-bottom:18px;scroll-snap-type:x mandatory;}
-  .scrol::-webkit-scrollbar{height:10px;}
-  .scrol::-webkit-scrollbar-thumb{background:rgba(255,255,255,.35);border-radius:10px;}
-  .chiped{
-    flex:0 0 auto;min-width:300px;background:rgba(255,255,255,.12);
-    border:1px solid rgba(255,255,255,.22);border-radius:14px;padding:30px 26px;
-    scroll-snap-align:start;backdrop-filter:blur(4px);
-  }
-  .chiped .lab{font-size:.8rem;letter-spacing:2px;text-transform:uppercase;color:#a0aec0;margin-bottom:10px;}
-  .chiped .val{font-size:1.35rem;font-weight:700;}
-  .chiped a.val{color:#fff;}
-  .chiped a.val:hover{color:#7cb3ff;}
-  .hint{text-align:center;color:#a0aec0;font-size:.95rem;margin-top:18px;}
-
-  footer{text-align:center;padding:34px 24px;color:var(--muted);font-size:1rem;background:var(--light);}
-
-  /* ===== АДАПТИВ ===== */
-  @media(max-width:960px){
-    .cards,.work,.revs,.prices{grid-template-columns:repeat(2,1fr);}
-    .menu{display:none;}
-    .hero h1{font-size:2.4rem;}
-  }
-  @media(max-width:620px){
-    .cards,.work,.revs,.prices{grid-template-columns:1fr;}
-    .hero h1{font-size:2rem;}
-    body{font-size:17px;}
-  }
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Segoe UI',Roboto,Arial,sans-serif;color:#1c1c1c;line-height:1.65;background:#f6f3ee;overflow-x:hidden;font-size:18px}
+a{text-decoration:none;color:inherit}
+img{max-width:100%;display:block}
+.container{max-width:1180px;margin:0 auto;padding:0 28px}
+.btn{display:inline-block;padding:16px 36px;border-radius:60px;font-weight:700;font-size:18px;cursor:pointer;transition:transform .2s,box-shadow .2s;border:none}
+.btn:hover{transform:translateY(-3px)}
+.btn-primary{background:linear-gradient(135deg,#ff7a18,#ff5722);color:#fff;box-shadow:0 10px 22px rgba(255,87,34,.35)}
+.btn-outline{background:transparent;color:#ff5722;border:2px solid #ff5722}
+.btn-outline:hover{background:#ff5722;color:#fff}
+header{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(246,243,238,.92);backdrop-filter:blur(10px);border-bottom:1px solid rgba(0,0,0,.06)}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:14px 28px;max-width:1180px;margin:0 auto;gap:16px}
+.logo{display:flex;align-items:center;gap:12px}
+.logo-mark{width:46px;height:46px;border-radius:12px;background:linear-gradient(135deg,#1b2a5e,#ff5722);color:#fff;font-size:26px;font-weight:900;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 14px rgba(27,42,94,.35)}
+.logo-text{line-height:1.1}
+.logo-name{font-size:21px;font-weight:800;letter-spacing:-.4px}
+.logo-name span{color:#ff5722}
+.logo-sub{font-size:12px;color:#8a8a8a;font-weight:600;letter-spacing:1.5px;text-transform:uppercase}
+.menu{display:flex;gap:26px;font-weight:600;font-size:17px}
+.menu a:hover{color:#ff5722}
+.nav-phone{font-weight:700;font-size:17px}
+.nav-phone:hover{color:#ff5722}
+@media(max-width:900px){.menu{display:none}}
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:linear-gradient(135deg,rgba(246,243,238,.9),rgba(246,243,238,.82)),url('https://static.mashagpt.ru/dl/mashagpt/no43ig87tkp6qchvz9rcm5st.webp') center/cover no-repeat}
+.hero::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 80% 20%,rgba(255,87,34,.12),transparent 50%);pointer-events:none}
+.hero .container{position:relative;z-index:2;display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center;padding-top:120px;padding-bottom:60px}
+.hero h1{font-size:clamp(36px,5vw,60px);line-height:1.15;font-weight:800;letter-spacing:-1px;margin-bottom:22px}
+.hero h1 .accent{color:#ff5722;border-bottom:4px solid #ff7a18}
+.hero-sub{font-size:20px;color:#444;margin-bottom:34px;max-width:520px}
+.hero-btns{display:flex;gap:16px;flex-wrap:wrap}
+.hero-photo-wrap{position:relative;text-align:center}
+.hero-photo{width:100%;max-width:420px;margin:0 auto;border-radius:28px;box-shadow:0 30px 70px rgba(0,0,0,.22);transform:rotate(-2deg);border:6px solid #fff}
+.hero-badge{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);background:#fff;padding:10px 22px;border-radius:40px;box-shadow:0 10px 25px rgba(0,0,0,.15);font-weight:700;color:#ff5722;white-space:nowrap}
+@media(max-width:860px){.hero .container{grid-template-columns:1fr;text-align:center;padding-top:120px}.hero-sub{margin-left:auto;margin-right:auto}.hero-btns{justify-content:center}.hero-photo{max-width:320px}}
+section{padding:96px 0;position:relative}
+.section-title{font-size:clamp(32px,4vw,46px);font-weight:800;text-align:center;letter-spacing:-1px;margin-bottom:16px}
+.section-sub{text-align:center;color:#555;max-width:640px;margin:0 auto 54px;font-size:19px}
+.alt{background:#fff}
+.problems-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:24px;margin-bottom:42px}
+.problem-card{background:#fff;border-radius:18px;padding:30px;box-shadow:0 8px 25px rgba(0,0,0,.07);border-top:4px solid #ff7a18;transition:transform .25s}
+.problem-card:hover{transform:translateY(-6px)}
+.problem-card h3{font-size:20px;margin-bottom:12px}
+.problem-card p{color:#555;font-size:17px}
+.problems-solve{background:#ff5722;color:#fff;border-radius:18px;padding:26px 32px;font-size:21px;font-weight:700;text-align:center;box-shadow:0 14px 30px rgba(255,87,34,.3)}
+.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px}
+.service-card{background:#f6f3ee;border-radius:18px;padding:32px;text-align:center;transition:transform .25s}
+.service-card:hover{transform:translateY(-6px)}
+.service-icon{width:70px;height:70px;margin:0 auto 18px;border-radius:16px;background:linear-gradient(135deg,#ff7a18,#ff5722);display:flex;align-items:center;justify-content:center;font-size:32px;color:#fff}
+.service-card h3{margin-bottom:12px;font-size:21px}
+.service-card p{color:#555;font-size:17px}
+.steps-wrap{max-width:920px;margin:0 auto}
+.step{display:flex;align-items:flex-start;gap:24px;margin-bottom:34px;background:#fff;border-radius:18px;padding:28px;box-shadow:0 6px 20px rgba(0,0,0,.06)}
+.step-num{min-width:58px;height:58px;border-radius:14px;background:linear-gradient(135deg,#ff7a18,#ff5722);color:#fff;font-weight:800;font-size:24px;display:flex;align-items:center;justify-content:center}
+.step h3{font-size:22px;margin-bottom:8px}
+.step p{color:#555;font-size:17px}
+.step .btn{margin-top:16px}
+@media(max-width:600px){.step{flex-direction:column}}
+.portfolio-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
+.case-card{background:#f6f3ee;border-radius:18px;overflow:hidden;box-shadow:0 8px 25px rgba(0,0,0,.07);transition:transform .25s}
+.case-card:hover{transform:translateY(-6px)}
+.case-head{padding:26px;border-bottom:2px dashed #e0d9cf}
+.case-head h3{font-size:22px}
+.case-niche{font-weight:700;color:#ff5722;margin-top:6px}
+.case-body{padding:22px 26px;color:#555;font-size:17px}
+.features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
+.feature-card{background:#f6f3ee;border-radius:18px;padding:30px;border-left:5px solid #ff7a18}
+.feature-card h3{font-size:21px;margin-bottom:10px}
+.feature-card p{color:#555;font-size:17px}
+.reviews-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;margin-top:40px}
+.review-card{background:#fff;border-radius:18px;padding:30px;box-shadow:0 8px 25px rgba(0,0,0,.07)}
+.review-stars{color:#ffb400;font-size:22px;letter-spacing:3px;margin-bottom:14px}
+.review-text{font-style:italic;color:#333;font-size:18px;margin-bottom:20px}
+.review-author{display:flex;align-items:center;gap:12px}
+.review-avatar{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#ff7a18,#ff5722);color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center;font-size:19px}
+.review-name{font-weight:700;font-size:17px}
+.review-niche{color:#888;font-size:15px}
+.price-triggers{display:flex;flex-wrap:wrap;justify-content:center;gap:42px;margin-bottom:52px;padding:26px;background:#fff;border-radius:18px;box-shadow:0 8px 25px rgba(0,0,0,.06)}
+.trigger{text-align:center}
+.trigger .num{font-size:32px;font-weight:800;color:#ff5722}
+.trigger .label{color:#777;font-size:15px}
+.prices-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:24px;align-items:stretch}
+.price-card{background:#f6f3ee;border-radius:18px;padding:34px;text-align:center;position:relative;transition:transform .25s}
+.price-card:hover{transform:translateY(-6px)}
+.price-card.popular{background:#fff;box-shadow:0 18px 40px rgba(0,0,0,.1);border:2px solid #ff5722}
+.popular-badge{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:#ff5722;color:#fff;font-size:14px;font-weight:700;padding:6px 18px;border-radius:30px}
+.price-name{font-weight:800;font-size:22px}
+.price-value{font-size:46px;font-weight:800;color:#ff5722;margin:14px 0 6px}
+.price-term{color:#888;font-size:15px;margin-bottom:20px}
+.price-list{list-style:none;margin-bottom:26px;text-align:left}
+.price-list li{padding:8px 0;color:#555;font-size:17px}
+.price-list li::before{content:"✔ ";color:#ff5722;font-weight:700}
+.form-card{max-width:640px;margin:0 auto;background:#fff;border-radius:22px;padding:42px;box-shadow:0 18px 45px rgba(0,0,0,.1)}
+.form-group{margin-bottom:20px}
+.form-group label{display:block;font-weight:600;margin-bottom:7px;font-size:17px}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:14px 17px;border-radius:12px;border:1.5px solid #ddd;font-size:17px;font-family:inherit;background:#fafaf7}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{outline:none;border-color:#ff5722}
+.consent{font-size:14px;color:#999;margin-top:16px;text-align:center}
+.form-card .btn{width:100%;margin-top:12px}
+#contacts{position:relative;overflow:hidden}
+#contacts .container{position:relative;z-index:2}
+.contacts-bg{position:absolute;inset:0;background:linear-gradient(135deg,rgba(246,243,238,.9),rgba(246,243,238,.85)),url('https://static.mashagpt.ru/dl/mashagpt/no43ig87tkp6qchvz9rcm5st.webp') center/cover no-repeat}
+.contacts-scroll-wrap{position:relative;max-width:1000px;margin:0 auto}
+.contacts-arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:5;width:44px;height:44px;border-radius:50%;border:none;background:#ff5722;color:#fff;font-size:22px;font-weight:800;cursor:pointer;box-shadow:0 8px 18px rgba(255,87,34,.35);transition:transform .2s}
+.contacts-arrow:hover{transform:translateY(-50%) scale(1.08)}
+.contacts-arrow.prev{left:-18px}
+.contacts-arrow.next{right:-18px}
+@media(max-width:1080px){.contacts-arrow.prev{left:4px}.contacts-arrow.next{right:4px}}
+.contacts-grid{display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;padding:8px 4px 20px;scrollbar-width:thin;scrollbar-color:#ff5722 #eee}
+.contacts-grid::-webkit-scrollbar{height:8px}
+.contacts-grid::-webkit-scrollbar-track{background:#eee;border-radius:20px}
+.contacts-grid::-webkit-scrollbar-thumb{background:#ff5722;border-radius:20px}
+.contact-item{flex:0 0 230px;scroll-snap-align:start;background:#fff;border-radius:16px;padding:26px;text-align:center;box-shadow:0 6px 20px rgba(0,0,0,.08)}
+.contact-item .icon{font-size:32px;margin-bottom:12px}
+.contact-item a,.contact-item span{font-weight:600;font-size:17px;word-break:break-word}
+.contact-item a:hover{color:#ff5722}
+footer{background:#1c1c1c;color:#aaa;text-align:center;padding:34px 20px;font-size:16px}
+footer span{color:#ff7a18;font-weight:700}
 </style>
 </head>
 <body>
 
-<!-- ШАПКА -->
 <header>
-  <div class="nav">
-    <div class="logo">
-      <!-- Логотип смонтирован: знак SVG (C из тёмного + S/AI синий) + текст -->
-      <svg class="logo-icon" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M20 12h18a14 14 0 0 1 0 28h-6" stroke="#1a202c" stroke-width="7" stroke-linecap="round"/>
-        <path d="M32 34a12 12 0 0 0 0 24h-8v-4h8a8 8 0 0 0 0-16h6v-4h-6z" fill="#0066ff"/>
-        <text x="44" y="56" font-size="7" font-weight="bold" fill="#0066ff" font-family="Arial">AI</text>
-      </svg>
-      <div class="logo-text">
-        <span class="logo-name">Grigorich<span class="ai">Step</span><span class="ai">AI</span></span>
-        <span class="logo-sub">Web Design Studio</span>
-      </div>
-    </div>
-    <nav class="menu">
-      <a href="#services">Услуги</a>
-      <a href="#work">Портфолио</a>
-      <a href="#reviews">Отзывы</a>
-      <a href="#prices">Цены</a>
-      <a class="cta" href="#contact">Связаться</a>
-    </nav>
-  </div>
+<div class="nav">
+<div class="logo"><div class="logo-mark">G</div><div class="logo-text"><div class="logo-name">Grigorich<span>StepAI</span></div><div class="logo-sub">Web Design Studio</div></div></div>
+<nav class="menu"><a href="#problems">Проблемы</a><a href="#services">Что делаю</a><a href="#steps">Как работаю</a><a href="#portfolio">Портфолио</a><a href="#prices">Тарифы</a><a href="#contacts">Контакты</a></nav>
+<a class="nav-phone" href="tel:+79012662409">+7 (901) 266-24-09</a>
+</div>
 </header>
 
-<!-- ГЕРОЙ (фото в полупрозрачном тоне) -->
-<section class="hero" id="top">
-  <h1>Создаём современные сайты, <span>которые продают</span></h1>
-  <p>GrigorichStepAI — веб-студия полного цикла: дизайн, разработка, продвижение. Делаем интерфейсы, которые впечатляют и приносят прибыль.</p>
-  <div class="hero-btns">
-    <a class="btn btn-primary" href="#contact">Заказать сайт</a>
-    <a class="btn btn-ghost" href="#work">Смотреть работы</a>
-  </div>
+<section class="hero">
+<div class="hero-bg"></div>
+<div class="container">
+<div>
+<h1>Сделаю лендинг для бизнеса и услуг <span class="accent">под ключ от 2 дней</span></h1>
+<p class="hero-sub">С адаптацией, формами заявок и базовой SEO-подготовкой. Ваш бизнес заслуживает крутого старта!</p>
+<div class="hero-btns"><a href="#form" class="btn btn-primary">Оставить заявку</a><a href="#contacts" class="btn btn-outline">Пообщаться в MAX</a></div>
+</div>
+<div class="hero-photo-wrap"><img class="hero-photo" src="https://static.mashagpt.ru/dl/mashagpt/no43ig87tkp6qchvz9rcm5st.webp" alt="Игорь Рожков"><div class="hero-badge">⚡ Разрабатываю сайты</div></div>
+</div>
 </section>
 
-<!-- УСЛУГИ -->
+<section class="alt" id="problems">
+<div class="container">
+<h2 class="section-title">Узнаёте себя?</h2>
+<p class="section-sub">Ситуации, с которыми сталкиваются владельцы бизнеса и услуг</p>
+<div class="problems-grid">
+<div class="problem-card"><h3>🔻 Реклама есть, а заявок нет</h3><p>Сайт не убеждает оставить контакт — деньги уходят впустую.</p></div>
+<div class="problem-card"><h3>🔻 Старый сайт стыдно показывать</h3><p>На телефоне всё едет, клиент уходит к конкуренту.</p></div>
+<div class="problem-card"><h3>🔻 Открываете дело — а сайта нет</h3><p>Без сайта бизнес выглядит несерьёзно.</p></div>
+<div class="problem-card"><h3>🔻 Студии просят 50–90 тысяч и месяц</h3><p>А ждать некогда — клиенты нужны уже сейчас.</p></div>
+</div>
+<div class="problems-solve">🟠 Во всех случаях решение одно — сайт, который продаёт. Быстро и без переплаты.</div>
+</div>
+</section>
+
 <section id="services">
-  <div class="sec-head">
-    <h2>Наши услуги</h2>
-    <p>Полный спектр работ от идеи до запуска и развития вашего проекта.</p>
-  </div>
-  <div class="cards">
-    <div class="card"><div class="ico">🎨</div><h3>Веб-дизайн</h3><p>Уникальные макеты в фирменном стиле, современные тренды, адаптив под все устройства.</p></div>
-    <div class="card"><div class="ico">💻</div><h3>Разработка</h3><p>Быстрые и надёжные сайты: лендинги, корпоративные порталы, интернет-магазины.</p></div>
-    <div class="card"><div class="ico">⚡</div><h3>SEO и продвижение</h3><p>Выводим сайт в топ поисковой выдачи и настраиваем рекламу для роста продаж.</p></div>
-  </div>
+<div class="container">
+<h2 class="section-title">Что делаю</h2>
+<p class="section-sub">Услуги, которые помогают бизнесу расти</p>
+<div class="services-grid">
+<div class="service-card"><div class="service-icon">🚀</div><h3>Лендинги под бизнес и услуги</h3><p>Идеально для быстрого запуска продаж.</p></div>
+<div class="service-card"><div class="service-icon">🎯</div><h3>Продающие сайты</h3><p>Глубокая проработка воронки и офферов.</p></div>
+<div class="service-card"><div class="service-icon">💼</div><h3>Сайты-визитки</h3><p>Лаконично и презентабельно для личного бренда.</p></div>
+<div class="service-card"><div class="service-icon">🔧</div><h3>Доработки существующих сайтов</h3><p>Исправлю ошибки и ускорю ваш сайт.</p></div>
+</div>
+</div>
 </section>
 
-<!-- ПОРТФОЛИО -->
-<section id="work">
-  <div class="sec-head">
-    <h2>Портфолио</h2>
-    <p>Избранные проекты, которыми мы гордимся.</p>
-  </div>
-  <div class="work">
-    <div class="witem"><span class="tag">Лендинг</span><div class="cap"><h3>Интернет-магазин мебели</h3><p>Дизайн + разработка + SEO</p></div></div>
-    <div class="witem"><span class="tag">Корпоративный</span><div class="cap"><h3>Сайт строительной компании</h3><p>Многостраничный портал</p></div></div>
-    <div class="witem"><span class="tag">Брендинг</span><div class="cap"><h3>Ребрендинг кофейни</h3><p>Логотип + сайт</p></div></div>
-  </div>
+<section class="alt" id="steps">
+<div class="container">
+<h2 class="section-title">Как работаем</h2>
+<p class="section-sub">Простой и понятный процесс без лишней бюрократии</p>
+<div class="steps-wrap">
+<div class="step"><div class="step-num">1</div><div><h3>Заявка</h3><p>Обсудим вашу идею и цели.</p><a href="#form" class="btn btn-primary">Оставить заявку</a></div></div>
+<div class="step"><div class="step-num">2</div><div><h3>Бриф</h3><p>Короткая анкета, чтобы я понял ваш бизнес (10 минут, без ТЗ на 20 страниц).</p></div></div>
+<div class="step"><div class="step-num">3</div><div><h3>Прототип</h3><p>Делаю структуру и логику будущего сайта.</p></div></div>
+<div class="step"><div class="step-num">4</div><div><h3>Дизайн и вёрстка</h3><p>Яркий визуал + адаптив под все устройства.</p></div></div>
+<div class="step"><div class="step-num">5</div><div><h3>Сдача + инструкция</h3><p>Передаю доступы и учу вносить правки самостоятельно. Платите после утверждения.</p></div></div>
+</div>
+</div>
 </section>
 
-<!-- ОТЗЫВЫ -->
-<section id="reviews">
-  <div class="sec-head">
-    <h2>Отзывы клиентов</h2>
-    <p>Что говорят о работе с нами.</p>
-  </div>
-  <div class="revs">
-    <div class="rev"><div class="stars">★★★★★</div><p>«Сделали лендинг за неделю. Заявки пошли в первый же день. Спасибо за скорость и качество!»</p><div class="who">Алексей М.<span>Владелец мебельного магазина</span></div></div>
-    <div class="rev"><div class="stars">★★★★★</div><p>«Команда погрузилась в наш бизнес глубже нас самих. Сайт получился стильный и удобный.»</p><div class="who">Мария К.<span>Директор кофейни</span></div></div>
-    <div class="rev"><div class="stars">★★★★★</div><p>«Профессиональный подход, понятные отчёты, огонь в дизайне. Рекомендую всем!»</p><div class="who">Игорь С.<span>СЕО строительной компании</span></div></div>
-  </div>
+<section id="portfolio">
+<div class="container">
+<h2 class="section-title">Портфолио</h2>
+<p class="section-sub">Примеры работ в разных нишах</p>
+<div class="portfolio-grid">
+<div class="case-card"><div class="case-head"><h3>Екатерина Коробейникова</h3><div class="case-niche">Юриспруденция / банкротство</div></div><div class="case-body">Лендинг с бесплатной консультацией.</div></div>
+<div class="case-card"><div class="case-head"><h3>Екатерина Зубова</h3><div class="case-niche">Психология / гештальт</div></div><div class="case-body">Бережный дизайн под доверие + удобная запись.</div></div>
+<div class="case-card"><div class="case-head"><h3>Елена Ганичева</h3><div class="case-niche">Репетитор начальных классов</div></div><div class="case-body">Понятная структура + сбор заявок через мессенджеры.</div></div>
+</div>
+</div>
 </section>
 
-<!-- ЦЕНЫ -->
+<section class="alt" id="features">
+<div class="container">
+<h2 class="section-title">Что вы получите</h2>
+<p class="section-sub">Почему со мной работать удобно</p>
+<div class="features-grid">
+<div class="feature-card"><h3>🎯 Сайт, который превращает клики в заявки</h3><p>Продающая структура, а не просто красивая картинка.</p></div>
+<div class="feature-card"><h3>⚡ Готов за пару дней</h3><p>Без ожидания в три недели.</p></div>
+<div class="feature-card"><h3>💡 Не пустой шаблон</h3><p>Прорабатываю оффер под вашу аудиторию.</p></div>
+<div class="feature-card"><h3>🚀 Запуск под ключ</h3><p>Через пару дней у бизнеса есть лицо в интернете.</p></div>
+<div class="feature-card"><h3>💰 Фиксированная цена</h3><p>Без переплат сверху.</p></div>
+<div class="feature-card"><h3>📲 Заявки сразу вам в Max/CRM</h3><p>Без лишних сервисов.</p></div>
+</div>
+
+<h2 class="section-title" style="margin-top:80px">Отзывы клиентов</h2>
+<p class="section-sub">Реальные слова людей, с которыми я работал</p>
+<div class="reviews-grid">
+<div class="review-card"><div class="review-stars">★★★★★</div><p class="review-text">«Посмотрела. Очень понравилось. Спасибо Вам огромное 😊 С удовольствием буду Вас рекомендовать 😊»</p><div class="review-author"><div class="review-avatar">ЕЗ</div><div><div class="review-name">Екатерина Зубова</div><div class="review-niche">Психолог, гештальт-терапия</div></div></div></div>
+<div class="review-card"><div class="review-stars">★★★★★</div><p class="review-text">«Спасибо! Прислали сайт на проверку — всё работает, переходы исправные. Заинтересовали, уточняю стоимость услуги.»</p><div class="review-author"><div class="review-avatar">ЕК</div><div><div class="review-name">Екатерина Коробейникова</div><div class="review-niche">Юрист, банкротство</div></div></div></div>
+</div>
+</div>
+</section>
+
 <section id="prices">
-  <div class="sec-head">
-    <h2>Тарифы</h2>
-    <p>Прозрачные цены без скрытых платежей.</p>
-  </div>
-  <div class="prices">
-    <div class="plan">
-      <h3>Старт</h3>
-      <div class="price">25 000 ₽</div>
-      <ul><li>Лендинг до 5 блоков</li><li>Уникальный дизайн</li><li>Адаптивность</li><li>Базовое SEO</li></ul>
-      <a class="btn btn-ghost" href="#contact">Выбрать</a>
-    </div>
-    <div class="plan featured">
-      <h3>Бизнес</h3>
-      <div class="price">60 000 ₽</div>
-      <ul><li>Сайт до 10 страниц</li><li>Расширенный дизайн</li><li>Админ-панель</li><li>SEO + настройка рекламы</li></ul>
-      <a class="btn btn-primary" href="#contact">Выбрать</a>
-    </div>
-    <div class="plan">
-      <h3>Премиум</h3>
-      <div class="price">120 000 ₽</div>
-      <ul><li>Интернет-магазин</li><li>Индивидуальный брендинг</li><li>Интеграции и API</li><li>Поддержка 3 месяца</li></ul>
-      <a class="btn btn-ghost" href="#contact">Выбрать</a>
-    </div>
-  </div>
+<div class="container">
+<h2 class="section-title">Тарифы</h2>
+<p class="section-sub">Прозрачные цены без скрытых доплат</p>
+<div class="price-triggers">
+<div class="trigger"><div class="num">⚡ от 2 дней</div><div class="label">минимальный срок</div></div>
+<div class="trigger"><div class="num">⬆️ до 7 дней</div><div class="label">максимальный срок</div></div>
+<div class="trigger"><div class="num">💰 от 3 000 ₽</div><div class="label">фикс-цена</div></div>
+<div class="trigger"><div class="num">🛡️ 0 ₽</div><div class="label">предоплаты</div></div>
+</div>
+<div class="prices-grid">
+<div class="price-card"><div class="price-name">⚡ Быстрый лендинг</div><div class="price-value">3 000 ₽</div><div class="price-term">2 дня</div><ul class="price-list"><li>1 экран</li><li>Базовая форма заявки</li><li>Адаптив</li><li>Стандартный дизайн</li></ul><a href="#form" class="btn btn-outline">Выбрать</a></div>
+<div class="price-card popular"><div class="popular-badge">🔥 Популярный</div><div class="price-name">🚀 Лендинг с UX</div><div class="price-value">6 000 ₽</div><div class="price-term">5 дней</div><ul class="price-list"><li>Индивидуальная структура</li><li>Анализ конкурентов</li><li>До 5 блоков</li><li>Анимация</li></ul><a href="#form" class="btn btn-primary">Выбрать</a></div>
+<div class="price-card"><div class="price-name">💎 Лендинг + SEO</div><div class="price-value">10 000 ₽</div><div class="price-term">до 7 дней</div><ul class="price-list"><li>Полный цикл</li><li>SEO-мета-теги</li><li>Интеграция с CRM</li><li>Инструкция</li></ul><a href="#form" class="btn btn-outline">Выбрать</a></div>
+</div>
+</div>
 </section>
 
-<!-- КОНТАКТЫ (фото + горизонтальный скролл плашек) -->
-<section class="contact" id="contact">
-  <div class="inner">
-    <h2>Свяжитесь с нами</h2>
-    <p class="sub">Листайте плашки горизонтально — там все способы связи.</p>
-    <div class="scrol">
-      <div class="chiped"><div class="lab">Телефон</div><a class="val" href="tel:+79990000000">+7 (999) 000-00-00</a></div>
-      <div class="chiped"><div class="lab">Email</div><a class="val" href="mailto:hello@gsai.studio">hello@gsai.studio</a></div>
-      <div class="chiped"><div class="lab">Telegram</div><a class="val" href="https://t.me/gsai" target="_blank">@gsai_studio</a></div>
-      <div class="chiped"><div class="lab">Офис</div><div class="val">г. Москва, ул. Примерная, 10</div></div>
-      <div class="chiped"><div class="lab">Часы работы</div><div class="val">Пн–Пт, 09:00–20:00</div></div>
-    </div>
-    <p class="hint">→ ← прокрутите вправо, чтобы увидеть больше</p>
-  </div>
+<section class="alt" id="form">
+<div class="container">
+<h2 class="section-title">Оставить заявку</h2>
+<p class="section-sub">Расскажите о проекте — отвечу и предложу решение</p>
+<div class="form-card">
+<form>
+<div class="form-group"><label>Имя *</label><input type="text" placeholder="Ваше имя" required></div>
+<div class="form-group"><label>Телефон или MAX *</label><input type="text" placeholder="+7 (___) ___-__-__" required></div>
+<div class="form-group"><label>Почта</label><input type="email" placeholder="you@mail.ru"></div>
+<div class="form-group"><label>Тип сайта</label><select><option>Лендинг</option><option>Сайт-визитка</option><option>Интернет-магазин</option><option>Доработка сайта</option></select></div>
+<div class="form-group"><label>Бюджет (опционально)</label><input type="text" placeholder="Например: до 6 000 ₽"></div>
+<div class="form-group"><label>Сроки</label><input type="text" placeholder="Например: нужен за неделю"></div>
+<div class="form-group"><label>Ссылка на референс</label><textarea rows="2" placeholder="Вставьте ссылку на пример, который нравится"></textarea></div>
+<button type="submit" class="btn btn-primary">Отправить заявку</button>
+<p class="consent">Нажимая кнопку, вы соглашаетесь на обработку персональных данных.</p>
+</form>
+</div>
+</div>
 </section>
 
-<footer>
-  © 2026 GrigorichStepAI — Web Design Studio. Все права защищены.
-</footer>
+<section id="contacts">
+<div class="contacts-bg"></div>
+<div class="container">
+<h2 class="section-title">Контакты</h2>
+<p class="section-sub">Буду рад ответить на ваши вопросы</p>
+<div class="contacts-scroll-wrap">
+<button class="contacts-arrow prev" onclick="scrollContacts(-1)" aria-label="Назад">‹</button>
+<div class="contacts-grid" id="contactsGrid">
+<div class="contact-item"><div class="icon">📞</div><a href="tel:+79012662409">+7 (901) 266-24-09</a></div>
+<div class="contact-item"><div class="icon">✉️</div><a href="mailto:rozhkov.69@mail.ru">rozhkov.69@mail.ru</a></div>
+<div class="contact-item"><div class="icon">💬</div><span>Max: +7 (901) 266-24-09</span></div>
+<div class="contact-item"><div class="icon">🐙</div><a href="https://github.com/grigorichri" target="_blank" rel="noopener">GitHub</a></div>
+</div>
+<button class="contacts-arrow next" onclick="scrollContacts(1)" aria-label="Вперёд">›</button>
+</div>
+</div>
+</section>
+
+<footer>© 2026 <span>GrigorichStepAI</span> · Сайт, который продаёт. Быстро и без переплаты.</footer>
+
+<script>
+function scrollContacts(dir){var g=document.getElementById('contactsGrid');if(g)g.scrollBy({left:dir*250,behavior:'smooth'});}
+</script>
 
 </body>
 </html>
